@@ -22,7 +22,7 @@ class DayCalendar extends Component {
         const aTasks = consultantsTasks[aConsultant];
 
         return (
-            <React.Fragment>
+            <div className="table-responsive">
                 <table className="table table-bordered">
                     <thead>
                         <tr>
@@ -36,7 +36,7 @@ class DayCalendar extends Component {
                     </thead>
                     <tbody>{this.populateRow(aConsultant, aTasks, days)}</tbody>
                 </table>
-            </React.Fragment>
+            </div>
         );
     }
 
@@ -85,10 +85,21 @@ class DayCalendar extends Component {
 
         //pre-process
         let columnItems = [];
+        let dayTask = "";
+
         days.map((day) => {
+            dayTask = ""; //Reset
             tasks.map((task) => {
-                columnItems = [...columnItems, this.addToCal(day, task)];
+                let curtask = this.addToCal(day, task);
+                if (curtask !== undefined) {
+                    if (dayTask !== "") {
+                        dayTask += ", " + this.addToCal(day, task);
+                    } else {
+                        dayTask = this.addToCal(day, task);
+                    }
+                }
             });
+            columnItems = [...columnItems, dayTask];
         });
 
         //debug
@@ -98,7 +109,7 @@ class DayCalendar extends Component {
             <tr key={consultant}>
                 <th>{consultant}</th>
                 {columnItems.map((item) => (
-                    <td>{item}</td>
+                    <td className="col-md-1">{item}</td>
                 ))}
             </tr>
         );
@@ -115,7 +126,7 @@ class DayCalendar extends Component {
             return project.projectID;
         } else {
             console.log(project.startDate, project.endDate, day, false);
-            return null;
+            return;
         }
     }
 

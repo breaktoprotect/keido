@@ -9,13 +9,14 @@ class App extends Component {
 
     render() {
         return (
-            <div className="App Container">
+            <main className="container">
+                <br />
                 <DayCalendar
                     scheduledItems={this.state.scheduledItems}
                     displayStartDate={new Date(2022, 8 - 1, 15)}
                     displayEndDate={new Date(2022, 8 - 1, 27)}
                 />
-            </div>
+            </main>
         );
     }
 }
