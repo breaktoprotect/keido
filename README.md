@@ -1,2 +1,3 @@
 # keido
-A scheduling system for consultants, made by a consultant (or ex-consultant)
+A scheduling system for consultants, made by a consultant (or rather an ex-consultant)
+ 
