@@ -22,13 +22,13 @@ class NavBar extends Component {
                             <a
                                 className="nav-link active"
                                 aria-current="page"
-                                href="#"
+                                href="/"
                             >
                                 Dashboard
                             </a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">
+                            <a className="nav-link" href="/manage">
                                 Manage
                             </a>
                         </li>
