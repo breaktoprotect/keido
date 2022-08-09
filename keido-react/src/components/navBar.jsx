@@ -5,7 +5,7 @@ class NavBar extends Component {
     state = {};
     render() {
         return (
-            <nav class="navbar navbar-expand-md navbar-light bg-white rounded">
+            <nav className="navbar navbar-expand-md navbar-light bg-white rounded">
                 <div className="container-fluid">
                     <a className="navbar-brand" href="#">
                         <img
@@ -13,7 +13,7 @@ class NavBar extends Component {
                             src={logo}
                             alt=""
                             width="150"
-                            class="d-inline-block align-text-top"
+                            className="d-inline-block align-text-top"
                         />
                     </a>
 
@@ -33,7 +33,7 @@ class NavBar extends Component {
                             </a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">
+                            <a className="nav-link" href="/createTask">
                                 Create
                             </a>
                         </li>

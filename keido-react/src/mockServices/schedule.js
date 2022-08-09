@@ -64,6 +64,15 @@ const scheduledItems = [
         description: "Cloud training with Unicorn Vendor",
         clientCodeName: "Internal",
     },
+    {
+        id: "TSK-2022-4",
+        startDate: "15-08-2022",
+        endDate: "19-08-2022",
+        type: "training",
+        consultants: ["Eric Ee"],
+        description: "New joiner OSCP training",
+        clientCodeName: "Internal",
+    },
 ];
 
 export function getScheduledItems() {
