@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import "./App.css";
 import DayCalendar from "./components/dayCalendar";
 import { getScheduledItems } from "./mockServices/schedule";
+import NavBar from "./components/navBar";
 
 class App extends Component {
     state = { scheduledItems: getScheduledItems() };
@@ -10,7 +11,7 @@ class App extends Component {
     render() {
         return (
             <main className="container">
-                <br />
+                <NavBar />
                 <DayCalendar
                     scheduledItems={this.state.scheduledItems}
                     displayStartDate={new Date(2022, 8 - 1, 15)}

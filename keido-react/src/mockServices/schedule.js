@@ -38,7 +38,7 @@ const scheduledItems = [
         clientCodeName: "Djano",
     },
     {
-        id: "TASK-2022-2",
+        id: "TSK-2022-2",
         startDate: "22-08-2022",
         endDate: "26-08-2022",
         type: "research",
@@ -47,7 +47,7 @@ const scheduledItems = [
         clientCodeName: "Internal",
     },
     {
-        id: "TASK-2022-1",
+        id: "TSK-2022-1",
         startDate: "01-08-2022",
         endDate: "03-08-2022",
         type: "improvement",
@@ -56,7 +56,7 @@ const scheduledItems = [
         clientCodeName: "Internal",
     },
     {
-        id: "TASK-2022-3",
+        id: "TSK-2022-3",
         startDate: "15-08-2022",
         endDate: "17-08-2022",
         type: "training",

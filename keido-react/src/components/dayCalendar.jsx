@@ -34,10 +34,12 @@ class DayCalendar extends Component {
                 <table className="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th scope="col"></th>
+                            <th scope="col">
+                                <center>{format(days[0], "yyyy")}</center>
+                            </th>
                             {days.map((day) => (
                                 <th key={day} scope="col">
-                                    {format(day, "dd-MM-yyyy")}
+                                    <center>{format(day, "dd/MM")}</center>
                                 </th>
                             ))}
                         </tr>
