@@ -9,6 +9,8 @@ uvicorn = "*"
 PyJWT = "*"
 python-decouple = "*"
 pydantic = {extras = ["email"], version = "*"}
+passlib = "*"
+bcrypt = "*"
 
 [dev-packages]
 
