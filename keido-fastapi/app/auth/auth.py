@@ -20,7 +20,7 @@ class AuthHandler():
 
     def encode_token(self, user_id):
         payload = {
-            'expz': (datetime.utcnow() + timedelta(days=0, minutes=5)).timestamp(), #TODO - bug won't expire or always expire
+            'exp': (datetime.utcnow() + timedelta(days=0, minutes=5)).timestamp(), #TODO - bug won't expire or always expire
             'iat': datetime.utcnow().timestamp(), #issued at time (iat)
             'sub': user_id
         }
