@@ -1,0 +1,6 @@
+Role-based Access Control
+-------------------------
+Roles - Description
+[No Role] - Unauthenticated - Only public pages
+User - Normal authenticated user (non-admin)
+Admin - User with administrative privileges
