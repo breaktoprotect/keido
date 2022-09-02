@@ -4,23 +4,29 @@ import { useForm } from "react-hook-form";
 const LoginForm = () => {
     const { register, handleSubmit, errors } = useForm();
 
-    const onSubmit = (data) => {
-        console.log("Login button clicked! Data:", data);
+    const onSubmit = (data, e) => {
+        console.log("Login button clicked! Data and e:", data, e);
+    };
+
+    const onError = (err) => {
+        console.log("onError err->", err);
     };
 
     return (
-        <div className="form-group">
+        <form
+            className="form-group"
+            id="loginFormID"
+            onSubmit={handleSubmit(onSubmit, onError)}
+        >
             <div className="mb-3">
                 <label htmlFor="emailAddressField" className="form-label">
                     Email address
                 </label>
                 <input
-                    type="email"
-                    placeholder="email@domain.com"
+                    type="text"
                     className="form-control"
-                    id="emailAddressField"
-                    aria-describedby="emailHelp"
-                    /* ref={register} */
+                    placeholder="valid_email@domain.com"
+                    {...register("emailAddress")}
                 />
             </div>
             <div className="mb-3">
@@ -28,23 +34,18 @@ const LoginForm = () => {
                     Password
                 </label>
                 <input
-                    type="password"
                     className="form-control"
-                    id="passwordField"
-                    aria-describedby="passwordField"
-                    /* ref={register} */
+                    type="password"
+                    {...register("password")}
                 />
             </div>
+
             <div className="mb-3">
-                <button
-                    onClick={handleSubmit(onSubmit)}
-                    className="btn btn-primary"
-                    type="submit"
-                >
+                <button className="btn btn-primary" type="submit">
                     Log me in!
                 </button>
             </div>
-        </div>
+        </form>
     );
 };
 
