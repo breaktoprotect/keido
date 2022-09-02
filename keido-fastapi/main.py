@@ -16,6 +16,7 @@ ADMINS = ['admin']
 admin_user = {
     'username': 'admin',
     'hashed_password': '$2b$12$5INIF0hUA5h0La7yFsrM2uyGYyYC.trFkP4TgZigAGyxhOXiQm13u',
+    'role':'admin'
     }
 
 USERS.append(admin_user)
@@ -78,16 +79,12 @@ def login(auth_details: AuthDetails):
 
 #? ********************* Private APIs *************************
 @app.get('/users/list', tags=['Users'])
-def list_users(username=Depends(auth_handler.auth_wrapper)):
+def list_users(username=Depends(auth_handler.check_authenticated)):
     #debug
     print("REACHED main::list_users()")
     return [user['username'] for user in USERS]
 
 #? ####################### Admin APIs #########################
 @app.get('/admin/test', tags=['Administration'])
-def admin_test(username=Depends(auth_handler.auth_wrapper)):
-    #TODO
-    if username not in ADMINS:
-        return { 'msg': 'YOU ARE NOT ADMIN!'}
-
+def admin_test(username=Depends(auth_handler.check_admin)):
     return { 'msg':'admin page reached successfully!'}

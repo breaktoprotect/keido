@@ -45,15 +45,26 @@ class AuthHandler():
             print("utcnow() ->", datetime.utcnow().timestamp())
 
             payload = jwt.decode(token, self.SECRETS, algorithms=['HS256'])        
-            return payload['sub']
+            return payload
         except jwt.ExpiredSignatureError:
             raise HTTPException(status_code=401, detail='Token has expired')
         except jwt.InvalidTokenError as e:
             raise HTTPException(status_code=401, detail='Invalid token')
 
-    # Dependency injection
-    def auth_wrapper(self, auth: HTTPAuthorizationCredentials = Security(security)):
-        #debug
-        print("auth::auth_wrapper's auth:", auth)
+    # Check if user is authenticated
+    # Role - User
+    def check_authenticated(self, auth: HTTPAuthorizationCredentials = Security(security)):
+        return self.decode_token(auth.credentials)['sub']
 
-        return self.decode_token(auth.credentials)
+    # Check if user is authenticated and admin role
+    # Role - Admin
+    def check_admin(self, auth: HTTPAuthorizationCredentials = Security(security)):
+        payload = self.decode_token(auth.credentials)
+
+        #debug
+        print("check_admin::payload ->", payload)
+
+        if payload['role'] != 'admin':
+            raise HTTPException(status_code=401, detail='User is not admin')
+
+        return payload['sub']
