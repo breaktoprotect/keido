@@ -7,6 +7,7 @@ import { getScheduledItems } from "./mockServices/schedule";
 import NavBar from "./components/navBar";
 import CreateTask from "./components/createTask";
 import ErrorPage from "./components/errorPage";
+import LoginForm from "./components/loginForm";
 
 function App() {
     return (
@@ -33,6 +34,7 @@ function App() {
                             }
                         />
                         <Route path="/createTask" element={<CreateTask />} />
+                        <Route path="/login" element={<LoginForm />} />
                         <Route path="*" element={<ErrorPage />} />
                     </Routes>
                 </BrowserRouter>

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import logo from "../new-logo-text-horizontal.PNG";
+import logo from "../images/new-logo-text-horizontal.PNG";
+import unauthAvatar from "../images/unauth_avatar.PNG";
 
 class NavBar extends Component {
     state = {};
@@ -37,9 +38,18 @@ class NavBar extends Component {
                                 Create
                             </a>
                         </li>
+                        <li className="nav-item"></li>
                     </ul>
+                    <a className="nav-link" href="/login">
+                        <img
+                            src={unauthAvatar}
+                            alt="Avatar Logo"
+                            width="40"
+                            className="rounded-pill"
+                        />
+                    </a>
 
-                    <button
+                    {/* <button
                         className="navbar-toggler"
                         type="button"
                         data-bs-toggle="collapse"
@@ -49,7 +59,7 @@ class NavBar extends Component {
                         aria-label="Toggle navigation"
                     >
                         <span className="navbar-toggler-icon"></span>
-                    </button>
+                    </button> */}
                 </div>
             </nav>
         );
