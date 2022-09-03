@@ -44,8 +44,9 @@ class NavBar extends Component {
                         <img
                             src={unauthAvatar}
                             alt="Avatar Logo"
-                            width="40"
-                            className="rounded-pill"
+                            width="25"
+                            opacity="0.1"
+                            className="rounded-pill opacity-25"
                         />
                     </a>
 

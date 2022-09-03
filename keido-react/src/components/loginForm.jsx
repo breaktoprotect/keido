@@ -2,14 +2,20 @@ import React from "react";
 import { useForm } from "react-hook-form";
 
 const LoginForm = () => {
-    const { register, handleSubmit, errors } = useForm();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
 
     const onSubmit = (data, e) => {
         console.log("Login button clicked! Data and e:", data, e);
+        console.log("errors object:", errors);
     };
 
     const onError = (err) => {
         console.log("onError err->", err);
+        console.log("errors object:", errors);
     };
 
     return (
@@ -25,9 +31,16 @@ const LoginForm = () => {
                 <input
                     type="text"
                     className="form-control"
-                    placeholder="valid_email@domain.com"
-                    {...register("emailAddress")}
+                    {...register("emailAddress", {
+                        required: true,
+                        pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    })}
                 />
+                {errors.emailAddress?.type === "pattern" && (
+                    <div className="m-1 fw-light text-danger">
+                        Valid email address required
+                    </div>
+                )}
             </div>
             <div className="mb-3">
                 <label htmlFor="passwordField" className="form-label">
@@ -36,8 +49,17 @@ const LoginForm = () => {
                 <input
                     className="form-control"
                     type="password"
-                    {...register("password")}
+                    {...register("password", {
+                        required: true,
+                        minLength: 12,
+                        pattern: {},
+                    })}
                 />
+                {errors.password?.type === "minLength" && (
+                    <div className="m-1 fw-light text-danger">
+                        Minimum 12 characters.
+                    </div>
+                )}
             </div>
 
             <div className="mb-3">
