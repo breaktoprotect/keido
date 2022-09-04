@@ -8,6 +8,9 @@ const LoginForm = () => {
         formState: { errors },
     } = useForm();
 
+    // CSS classes
+    const errorClasses = "m-1 fw-light text-danger";
+
     const onSubmit = (data, e) => {
         console.log("Login button clicked! Data and e:", data, e);
         console.log("errors object:", errors);
@@ -37,7 +40,7 @@ const LoginForm = () => {
                     })}
                 />
                 {errors.emailAddress?.type === "pattern" && (
-                    <div className="m-1 fw-light text-danger">
+                    <div className={errorClasses}>
                         Valid email address required
                     </div>
                 )}
@@ -56,9 +59,7 @@ const LoginForm = () => {
                     })}
                 />
                 {errors.password?.type === "minLength" && (
-                    <div className="m-1 fw-light text-danger">
-                        Minimum 12 characters.
-                    </div>
+                    <div className={errorClasses}>Minimum 12 characters.</div>
                 )}
             </div>
 
