@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 
-const LoginForm = () => {
+const _LoginForm = () => {
     const {
         register,
         handleSubmit,
@@ -72,4 +72,4 @@ const LoginForm = () => {
     );
 };
 
-export default LoginForm;
+export default _LoginForm;
