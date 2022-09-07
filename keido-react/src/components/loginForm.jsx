@@ -9,6 +9,10 @@ import {
     CssBaseline,
     GlobalStyles,
 } from "@mui/material";
+import axios from "axios";
+
+const LOGIN_URI = process.env.REACT_APP_ENDPOINT + "/user/login";
+const PASSWORD_MIN_LENGTH = 5;
 
 const LoginForm = () => {
     const {
@@ -18,20 +22,28 @@ const LoginForm = () => {
         control,
     } = useForm();
 
-    const onSubmit = (data, e) => {
+    const onSubmit = async (data, e) => {
+        //debug
         console.log("Login button clicked! Data and e:", data, e);
         console.log("errors object:", errors);
+
+        // POST to server
+        const { data: post } = await axios.post(LOGIN_URI, data);
+
+        console.log("post:", post);
     };
 
     //debug only
     const onError = (err) => {
         console.log("onError err->", err);
         console.log("errors object:", errors);
+
+        //debug
+        console.warn("process.env:", process.env);
     };
 
     return (
         <>
-            <GlobalStyles styles={{ body: { backgroundColor: "grey" } }} />
             <Container maxWidth="xs">
                 <Box mb={8}></Box>
                 <Paper>
@@ -43,14 +55,14 @@ const LoginForm = () => {
                                     fullWidth
                                     autoFocus
                                     helperText={
-                                        errors?.emailAddress
+                                        errors?.email
                                             ? "Requires a valid email"
                                             : null
                                     }
-                                    error={errors?.emailAddress ? true : false}
+                                    error={errors?.email ? true : false}
                                     variant="outlined"
                                     label="Email"
-                                    {...register("emailAddress", {
+                                    {...register("email", {
                                         required: "Required",
                                         pattern:
                                             /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
@@ -71,7 +83,7 @@ const LoginForm = () => {
                                     type="password"
                                     {...register("password", {
                                         required: true,
-                                        minLength: 12,
+                                        minLength: PASSWORD_MIN_LENGTH,
                                         pattern: {},
                                     })}
                                 />
@@ -79,7 +91,7 @@ const LoginForm = () => {
                             <Box mb={2}>
                                 <Button
                                     variant="contained"
-                                    color="primary"
+                                    color="secondary"
                                     type="submit"
                                 >
                                     Log me in!

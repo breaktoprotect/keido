@@ -1,12 +1,12 @@
 from pydantic import BaseModel
 
 class AuthDetails(BaseModel):
-    username: str
+    email: str
     password: str
     class Config:
         schema_extra = {
             "example": {
-                "username": "bob",
+                "email": "bob",
                 "password": "bob"
             }
         }

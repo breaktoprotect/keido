@@ -34,7 +34,7 @@ const _LoginForm = () => {
                 <input
                     type="text"
                     className="form-control"
-                    {...register("emailAddress", {
+                    {...register("email", {
                         required: true,
                         pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                     })}

@@ -36,7 +36,7 @@ const NavBar = () => {
     };
 
     return (
-        <AppBar position="static" color="info">
+        <AppBar position="static" color="primary">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <CalendarMonthIcon
