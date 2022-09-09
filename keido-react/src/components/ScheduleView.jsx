@@ -2,9 +2,9 @@ import * as React from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Unstable_Grid2";
-import { Typography } from "@mui/material";
+import { Typography, Paper } from "@mui/material";
+import WorkIcon from "@mui/icons-material/Work";
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -59,51 +59,58 @@ export default function ScheduleView() {
     ];
 
     const getTaskColor = (taskType) => {
-        if (taskType === "work") return "info";
-        if (taskType === "free") return "grey";
-        if (taskType === "training") return "success";
-        if (taskType === "task") return "warning";
+        if (taskType === "work") return "work";
+        if (taskType === "free") return "pale";
+        if (taskType === "training") return "training";
+        if (taskType === "task") return "task";
         return "";
     };
 
     return (
         <Box sx={{ flexGrow: 1, m: 2 }} color="secondary">
-            {/*Days of the week*/}
-            <Grid container spacing={0.5} columns="8">
-                <Grid xs={1}></Grid>
-                {daysOfTheWeek.map((day) => (
-                    <Grid xs={1}>
-                        <Typography variant="h6" align="center">
-                            {day}
-                        </Typography>
-                    </Grid>
-                ))}
-            </Grid>
-            {/* */}
-            <Grid container spacing={0.5} columns="8">
-                {Schedule.map((sched) => (
-                    <>
-                        <Grid xs={1} key={sched.id}>
-                            <Button variant="plain" fullWidth color="grey">
-                                {sched.person}
-                            </Button>
-                        </Grid>
-                        {sched.tasks.map((task) => (
-                            <Grid xs={task.effort}>
-                                <Button
-                                    color={getTaskColor(task.type)}
-                                    variant="contained"
-                                    fullWidth
-                                    style={{}}
-                                >
-                                    {task.type}
-                                </Button>
+            <Paper>
+                <Box m={2}>
+                    {/*Days of the week*/}
+                    <Grid container spacing={0.5} columns="8">
+                        <Grid xs={1}></Grid>
+                        {daysOfTheWeek.map((day) => (
+                            <Grid xs={1}>
+                                <Typography variant="h6" align="center">
+                                    {day}
+                                </Typography>
                             </Grid>
                         ))}
-                    </>
-                ))}
-            </Grid>
-            {/* <Grid container spacing={0.5} columns="7">
+                    </Grid>
+                    {/* */}
+                    <Grid container spacing={0.5} columns="8">
+                        {Schedule.map((sched) => (
+                            <>
+                                <Grid xs={1} key={sched.id}>
+                                    <Button
+                                        variant="plain"
+                                        fullWidth
+                                        color="grey"
+                                    >
+                                        {sched.person}
+                                    </Button>
+                                </Grid>
+                                {sched.tasks.map((task) => (
+                                    <Grid xs={task.effort} my={0.5}>
+                                        <Button
+                                            color={getTaskColor(task.type)}
+                                            variant="contained"
+                                            fullWidth
+                                            style={{}}
+                                            size="small"
+                                        >
+                                            {task.type}
+                                        </Button>
+                                    </Grid>
+                                ))}
+                            </>
+                        ))}
+                    </Grid>
+                    {/* <Grid container spacing={0.5} columns="7">
                 <Grid xs={5}>
                     <Button variant="contained" fullWidth>
                         PRJ-2022-1
@@ -119,6 +126,8 @@ export default function ScheduleView() {
                     <Item>xs=8</Item>
                 </Grid>
             </Grid> */}
+                </Box>
+            </Paper>
         </Box>
     );
 }

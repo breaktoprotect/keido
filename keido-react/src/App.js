@@ -2,11 +2,11 @@
 import React from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import "./App.css";
-import DayCalendar from "./components/_dayCalendar";
+import DayCalendar from "./components/obsoleted/_dayCalendar";
 import { getScheduledItems } from "./mockServices/schedule";
 import NavBar from "./components/NavBar";
-import CreateTask from "./components/createTask";
-import ErrorPage from "./components/errorPage";
+import CreateTask from "./components/CreateTask";
+import ErrorPage from "./components/ErrorPage";
 import LoginForm from "./components/LoginForm";
 import ScheduleView from "./components/ScheduleView";
 
@@ -16,7 +16,21 @@ import {
     ThemeProvider,
 } from "@mui/material/styles";
 
+import { CssBaseline } from "@mui/material";
+
 const theme = createTheme({
+    overrides: {
+        MuiCssBaseline: {
+            "@global": {
+                body: {
+                    background:
+                        "linear-gradient(45deg, #3E4756 30%, #A2ACBD 90%)",
+                    backgroundRepeat: "no-repeat",
+                    backgroundAttachment: "fixed",
+                },
+            },
+        },
+    },
     palette: {
         primary: {
             main: "#1769AA",
@@ -27,12 +41,29 @@ const theme = createTheme({
         info: {
             main: "#B53466",
         },
+        pale: {
+            main: "#F1F1E6",
+        },
+        background: {
+            default: "#F0FAFF",
+        },
+        //Calendar
+        work: {
+            main: "#89C2FF",
+        },
+        task: {
+            main: "#EC8768",
+        },
+        training: {
+            main: "#00B8A2",
+        },
     },
 });
 
 function App() {
     return (
         <ThemeProvider theme={theme}>
+            <CssBaseline />
             <main className="container">
                 <NavBar />
                 <div className="content">

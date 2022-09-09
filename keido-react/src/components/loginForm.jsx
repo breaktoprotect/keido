@@ -49,7 +49,6 @@ const LoginForm = () => {
                 <Paper>
                     <Box p={4} variant="elevation" elevation={24}>
                         <form onSubmit={handleSubmit(onSubmit, onError)}>
-                            <CssBaseline />
                             <Box mb={2}>
                                 <TextField
                                     fullWidth
