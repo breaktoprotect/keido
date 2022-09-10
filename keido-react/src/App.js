@@ -1,14 +1,16 @@
 //import logo from "./logo.svg";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import jwtDecode from "jwt-decode";
 import "./App.css";
-import DayCalendar from "./components/obsoleted/_dayCalendar";
-import { getScheduledItems } from "./mockServices/schedule";
 import NavBar from "./components/NavBar";
 import CreateTask from "./components/CreateTask";
 import ErrorPage from "./components/ErrorPage";
 import LoginForm from "./components/LoginForm";
+import Logout from "./components/Logout";
 import ScheduleView from "./components/ScheduleView";
+
+import { getScheduledItems } from "./mockServices/schedule";
 
 import {
     themeProvider,
@@ -61,6 +63,21 @@ const theme = createTheme({
 });
 
 function App() {
+    /* const [user, setUser] = useState("");
+
+    useEffect(() => {
+        if (localStorage.getItem("token") !== null) {
+            const jwt = localStorage.getItem("token");
+            setUser(jwtDecode(jwt));
+
+            //debug
+            //console.log("decoded_jwt:", decoded_jwt);
+            console.log("user (state):", user);
+        }
+
+        return () => {};
+    }, []); */
+
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
@@ -81,6 +98,7 @@ function App() {
                                 element={<CreateTask />}
                             />
                             <Route path="/login" element={<LoginForm />} />
+                            <Route path="/logout" element={<Logout />} />
                             <Route path="*" element={<ErrorPage />} />
                         </Routes>
                     </BrowserRouter>

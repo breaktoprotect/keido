@@ -6,49 +6,51 @@ import {
     Box,
     TextField,
     Button,
-    CssBaseline,
+    Alert,
     GlobalStyles,
 } from "@mui/material";
-import axios from "axios";
 
-const LOGIN_URI = process.env.REACT_APP_ENDPOINT + "/user/login";
+import { useLogin } from "../hooks/useLogin";
+
 const PASSWORD_MIN_LENGTH = 5;
 
 const LoginForm = () => {
     const {
         register,
         handleSubmit,
+        setError,
         formState: { errors },
         control,
     } = useForm();
+    const { login, errors: apiErrors, isLoading } = useLogin();
 
     const onSubmit = async (data, e) => {
-        //debug
-        console.log("Login button clicked! Data and e:", data, e);
-        console.log("errors object:", errors);
-
-        // POST to server
-        const { data: post } = await axios.post(LOGIN_URI, data);
-
-        console.log("post:", post);
+        await login(data);
     };
 
     //debug only
-    const onError = (err) => {
+    /* const onError = (err) => {
         console.log("onError err->", err);
         console.log("errors object:", errors);
 
-        //debug
-        console.warn("process.env:", process.env);
-    };
+    }; */
+
+    //debug
+    console.log("apiErrors:", apiErrors);
+    console.log("errors:", errors);
 
     return (
         <>
             <Container maxWidth="xs">
                 <Box mb={8}></Box>
                 <Paper>
+                    {apiErrors?.apiError && (
+                        <Alert severity="error">
+                            {apiErrors.apiError.message}
+                        </Alert>
+                    )}
                     <Box p={4} variant="elevation" elevation={24}>
-                        <form onSubmit={handleSubmit(onSubmit, onError)}>
+                        <form onSubmit={handleSubmit(onSubmit)}>
                             <Box mb={2}>
                                 <TextField
                                     fullWidth
@@ -92,6 +94,7 @@ const LoginForm = () => {
                                     variant="contained"
                                     color="secondary"
                                     type="submit"
+                                    disabled={isLoading}
                                 >
                                     Log me in!
                                 </Button>
