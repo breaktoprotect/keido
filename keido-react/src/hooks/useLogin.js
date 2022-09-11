@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useAuthContext } from "./useAuthContext";
+import jwt_decode from "jwt-decode";
 
 const LOGIN_URI = process.env.REACT_APP_ENDPOINT + "/user/login";
 
@@ -28,11 +29,23 @@ export const useLogin = () => {
                     },
                 });
             } else {
+                // Decode the token to user object
+                const decodedUser = jwt_decode(response.token);
+
                 // Save the JWT to local storage (not the most secure, but works here)
-                localStorage.setItem("token", response.token);
+                localStorage.setItem("token", JSON.stringify(response.token));
 
                 // Update Auth context
-                dispatch({ type: "LOGIN", payload: response.token });
+                const authUser = {
+                    email: decodedUser["sub"],
+                    role: decodedUser["role"],
+                    token: response.token,
+                };
+                dispatch({ type: "LOGIN", payload: authUser });
+
+                //debug
+                console.log("decodedUser:", decodedUser);
+                console.log("authUser:", authUser);
 
                 //
                 setIsLoading(false);
@@ -61,5 +74,5 @@ export const useLogin = () => {
         }
     };
 
-    return { login, isLoading, errors };
+    return { login, isLoading, errors, setErrors };
 };

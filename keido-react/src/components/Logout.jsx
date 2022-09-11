@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Paper, Alert } from "@mui/material";
+import { useLogout } from "../hooks/useLogout";
 
 const Logout = () => {
-    const [loggedOut, setLoggedOut] = useState(false);
     const navigate = useNavigate();
+    const { logout, isLoggedOut } = useLogout();
 
     useEffect(() => {
+        logout();
+
+        setTimeout(() => {
+            navigate("/login");
+        }, 3000);
+    }, []); // onload only
+
+    /* useEffect(() => {
         if (localStorage.getItem("token") !== null) {
             localStorage.removeItem("token");
             setLoggedOut(true);
@@ -17,14 +26,14 @@ const Logout = () => {
         setTimeout(() => {
             navigate("/login");
         }, 3000);
-    }, []);
+    }, []); */
 
     return (
         <Box m={4}>
             <Paper sx={{ width: "50%" }}>
                 <Box>
                     {/* <Typography>You have successfully logged out!</Typography> */}
-                    {loggedOut ? (
+                    {isLoggedOut ? (
                         <Alert severity="info" color="primary">
                             You have successfully logged out! Redirecting to
                             login page in 3 seconds...

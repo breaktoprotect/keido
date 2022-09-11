@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useEffect } from "react";
 import jwt_decode from "jwt-decode";
 
 export const AuthContext = createContext();
@@ -9,8 +9,7 @@ export const authReducer = (state, action) => {
 
     switch (action.type) {
         case "LOGIN":
-            const decoded_user = jwt_decode(action.payload);
-            return { user: decoded_user };
+            return { user: action.payload };
         case "LOGOUT":
             return { user: null };
         default:
@@ -23,8 +22,25 @@ export const AuthContextProvider = ({ children }) => {
         user: null,
     });
 
+    useEffect(() => {
+        const token = JSON.parse(localStorage.getItem("token"));
+
+        if (token) {
+            // Decode token
+            const decodedUser = jwt_decode(token);
+
+            // Update Auth context
+            const authUser = {
+                email: decodedUser["sub"],
+                role: decodedUser["role"],
+                token: token,
+            };
+            dispatch({ type: "LOGIN", payload: authUser });
+        }
+    }, []); // onload only
+
     //debug
-    console.log("AuthContext state: ", state);
+    console.log("AuthContext state: ", JSON.stringify(state));
 
     return (
         <AuthContext.Provider value={{ ...state, dispatch }}>

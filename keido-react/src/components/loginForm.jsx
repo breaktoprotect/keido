@@ -9,6 +9,7 @@ import {
     Alert,
     GlobalStyles,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 import { useLogin } from "../hooks/useLogin";
 
@@ -22,18 +23,29 @@ const LoginForm = () => {
         formState: { errors },
         control,
     } = useForm();
-    const { login, errors: apiErrors, isLoading } = useLogin();
+    const {
+        login,
+        errors: apiErrors,
+        setErrors: setApiErrors,
+        isLoading,
+    } = useLogin();
+
+    const navigate = useNavigate();
 
     const onSubmit = async (data, e) => {
         await login(data);
+
+        setTimeout(() => {
+            navigate("/dashboard");
+        }, 1000);
     };
 
-    //debug only
-    /* const onError = (err) => {
-        console.log("onError err->", err);
-        console.log("errors object:", errors);
+    //TODO Need to figure out how to trigger this. Controller?
+    const onChange = () => {
+        setApiErrors(null);
 
-    }; */
+        console.log("LoginForm -> onChange entered!");
+    };
 
     //debug
     console.log("apiErrors:", apiErrors);
@@ -60,6 +72,7 @@ const LoginForm = () => {
                                             ? "Requires a valid email"
                                             : null
                                     }
+                                    /* onChange={onChange} */
                                     error={errors?.email ? true : false}
                                     variant="outlined"
                                     label="Email"
@@ -94,7 +107,7 @@ const LoginForm = () => {
                                     variant="contained"
                                     color="secondary"
                                     type="submit"
-                                    disabled={isLoading}
+                                    /* disabled={isLoading} */
                                 >
                                     Log me in!
                                 </Button>

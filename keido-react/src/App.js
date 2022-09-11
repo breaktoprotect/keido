@@ -94,6 +94,11 @@ function App() {
                         <Routes>
                             <Route path="/" exact element={<ScheduleView />} />
                             <Route
+                                path="/dashboard"
+                                exact
+                                element={<ScheduleView />}
+                            />
+                            <Route
                                 path="/createTask"
                                 element={<CreateTask />}
                             />
