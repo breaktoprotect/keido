@@ -1,4 +1,4 @@
-import { createContext, useReducer, useEffect } from "react";
+import { createContext, useReducer, useEffect, useMemo } from "react";
 import jwt_decode from "jwt-decode";
 
 export const AuthContext = createContext();
@@ -13,6 +13,12 @@ export const authReducer = (state, action) => {
         case "LOGOUT":
             return { user: null };
         default:
+            //debug
+            console.log(
+                "authReducer() returning default mode with state:",
+                state
+            );
+
             return state;
     }
 };
@@ -22,7 +28,7 @@ export const AuthContextProvider = ({ children }) => {
         user: null,
     });
 
-    useEffect(() => {
+    useMemo(() => {
         const token = JSON.parse(localStorage.getItem("token"));
 
         if (token) {
@@ -40,7 +46,7 @@ export const AuthContextProvider = ({ children }) => {
     }, []); // onload only
 
     //debug
-    console.log("AuthContext state: ", JSON.stringify(state));
+    console.log("AuthContext AFTER useeffect(): ", JSON.stringify(state));
 
     return (
         <AuthContext.Provider value={{ ...state, dispatch }}>

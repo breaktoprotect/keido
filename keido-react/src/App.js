@@ -1,7 +1,6 @@
 //import logo from "./logo.svg";
-import React, { useState, useEffect } from "react";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import jwtDecode from "jwt-decode";
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import NavBar from "./components/NavBar";
 import CreateTask from "./components/CreateTask";
@@ -9,6 +8,7 @@ import ErrorPage from "./components/ErrorPage";
 import LoginForm from "./components/LoginForm";
 import Logout from "./components/Logout";
 import ScheduleView from "./components/ScheduleView";
+import RequireAuth from "./components/RequireAuth";
 
 import { getScheduledItems } from "./mockServices/schedule";
 
@@ -17,7 +17,6 @@ import {
     createTheme,
     ThemeProvider,
 } from "@mui/material/styles";
-
 import { CssBaseline } from "@mui/material";
 
 const theme = createTheme({
@@ -92,18 +91,25 @@ function App() {
 
                     <BrowserRouter>
                         <Routes>
-                            <Route path="/" exact element={<ScheduleView />} />
-                            <Route
-                                path="/dashboard"
-                                exact
-                                element={<ScheduleView />}
-                            />
-                            <Route
-                                path="/createTask"
-                                element={<CreateTask />}
-                            />
+                            {/* Unauthenticated Pages */}
+                            {/* <Route path="/" exact element={<ScheduleView />} /> */}
                             <Route path="/login" element={<LoginForm />} />
-                            <Route path="/logout" element={<Logout />} />
+
+                            {/* Authenticated Pages */}
+                            <Route element={<RequireAuth />}>
+                                <Route
+                                    path="/"
+                                    exact
+                                    element={<ScheduleView />}
+                                />
+                                <Route
+                                    path="/createTask"
+                                    element={<CreateTask />}
+                                />
+                                <Route path="/logout" element={<Logout />} />
+                            </Route>
+
+                            {/* No route -> Error message */}
                             <Route path="*" element={<ErrorPage />} />
                         </Routes>
                     </BrowserRouter>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { useAuthContext } from "./useAuthContext";
+import { useAuth } from "./useAuth";
 import jwt_decode from "jwt-decode";
 
 const LOGIN_URI = process.env.REACT_APP_ENDPOINT + "/user/login";
@@ -8,7 +8,7 @@ const LOGIN_URI = process.env.REACT_APP_ENDPOINT + "/user/login";
 export const useLogin = () => {
     const [errors, setErrors] = useState(null);
     const [isLoading, setIsLoading] = useState(null);
-    const { dispatch } = useAuthContext();
+    const { dispatch } = useAuth();
 
     const login = async (data) => {
         setIsLoading(true);

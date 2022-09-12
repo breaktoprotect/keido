@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useAuthContext } from "./useAuthContext";
+import { useAuth } from "./useAuth";
 
 export const useLogout = () => {
-    const { dispatch } = useAuthContext();
+    const { dispatch } = useAuth();
     const [isLoggedOut, setIsLoggedOut] = useState(false);
 
     const logout = () => {
