@@ -2,8 +2,10 @@ import { useState } from "react";
 import axios from "axios";
 import { useAuth } from "./useAuth";
 import jwt_decode from "jwt-decode";
+import axiosReq from "../components/common/axiosCustom";
 
-const LOGIN_URI = process.env.REACT_APP_ENDPOINT + "/user/login";
+//const LOGIN_URI = process.env.REACT_APP_ENDPOINT + "/user/login";
+const LOGIN_URI = "/user/login";
 
 export const useLogin = () => {
     const [errors, setErrors] = useState(null);
@@ -16,7 +18,8 @@ export const useLogin = () => {
 
         try {
             // POST to server
-            const { data: response } = await axios.post(LOGIN_URI, data);
+            /* const { data: response } = await axios.post(LOGIN_URI, data); */
+            const { data: response } = await axiosReq.post(LOGIN_URI, data);
 
             //debug
             console.log(">> ", response.token);

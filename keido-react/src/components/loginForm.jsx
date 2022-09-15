@@ -36,7 +36,7 @@ const LoginForm = () => {
         await login(data);
 
         setTimeout(() => {
-            navigate("/dashboard");
+            navigate("/");
         }, 1000);
     };
 
