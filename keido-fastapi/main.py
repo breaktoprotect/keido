@@ -23,14 +23,60 @@ auth_handler = AuthHandler()
 USERS = [] 
 ADMINS = ['admin']
 
-#! Temporary admin role
+#! Temporary roles
 admin_user = {
     'email': 'admin@kei.do',
-    'hashed_password': '$2b$12$5INIF0hUA5h0La7yFsrM2uyGYyYC.trFkP4TgZigAGyxhOXiQm13u',
+    'hashed_password': '$2b$12$5INIF0hUA5h0La7yFsrM2uyGYyYC.trFkP4TgZigAGyxhOXiQm13u', #password -> "admin"
     'role':'admin'
     }
+test_user = {
+    'email': 'tester@kei.do', 
+    'hashed_password': '$2b$12$ipEc9wilgn/s0NgJe77cVeViTzjcCYW4JGcQgrq2YBIlf0iQs4emy', #password -> "tester"
+    'role':'user'
+}
 
 USERS.append(admin_user)
+USERS.append(test_user)
+
+#! Temporary schedule data
+schedule_data = [
+        {
+            "id": 1,
+            "person": "Alan Au",
+            "tasks": [
+                { "type": "work", "effort": 5 },
+                { "type": "free", "effort": 2 },
+            ],
+        },
+        {
+            "id": 2,
+            "person": "Bob Bennington",
+            "tasks": [
+                { "type": "work", "effort": 2 },
+                { "type": "free", "effort": 1 },
+                { "type": "task", "effort": 2 },
+                { "type": "free", "effort": 2 },
+            ],
+        },
+        {
+            "id": 3,
+            "person": "Nooba Nelly",
+            "tasks": [
+                { "type": "training", "effort": 5 },
+                { "type": "free", "effort": 2 },
+            ],
+        },
+        {
+            "id": 4,
+            "person": "Zack Zimmermann",
+            "tasks": [
+                { "type": "free", "effort": 2 },
+                { "type": "work", "effort": 1 },
+                { "type": "task", "effort": 2 },
+                { "type": "free", "effort": 2 },
+            ],
+        }
+    ];
 
 
 #* ********************** Public APIs *************************
@@ -94,6 +140,11 @@ def list_users(email=Depends(auth_handler.check_authenticated)):
     #debug
     print("REACHED main::list_users()")
     return [user['email'] for user in USERS]
+
+#todo test data only - temp
+@app.get('/schedule/list', tags=['Test only'])
+def list_schedule(email=Depends(auth_handler.check_authenticated)):
+    return schedule_data
 
 #? ####################### Admin APIs #########################
 @app.get('/admin/test', tags=['Administration'])

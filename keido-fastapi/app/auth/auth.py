@@ -13,7 +13,7 @@ class AuthHandler():
     pwd_context = CryptContext(schemes=['bcrypt'], deprecated='auto') # Bcrypt salt is generated https://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html
 
     def get_password_hash(self, password):
-        #! WARNING TESTING ONLY
+        #! SECURITY WARNING TESTING ONLY
         print("---PASS HASH------>", self.pwd_context.hash(password))
 
         return self.pwd_context.hash(password)
@@ -41,9 +41,6 @@ class AuthHandler():
     
     def decode_token(self, token):
         try:
-            #debug
-            print("utcnow() ->", datetime.utcnow().timestamp())
-
             payload = jwt.decode(token, self.SECRETS, algorithms=['HS256'])        
             return payload
         except jwt.ExpiredSignatureError:
