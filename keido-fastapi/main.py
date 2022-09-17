@@ -125,12 +125,9 @@ def login(auth_details: AuthDetails):
     if not auth_handler.verify_password(auth_details.password, confirmed_user['hashed_password']):
         return { "status": "login failed"}
 
-    # Check if user is admin
-    if confirmed_user['email'] in ADMINS:
-        # Create token with admin role
-        token = auth_handler.encode_token(confirmed_user['email'], 'admin')
-    else:
-        token = auth_handler.encode_token(confirmed_user['email'], 'user')
+    # Create token with defined role
+    token = auth_handler.encode_token(confirmed_user['email'], confirmed_user['role'])
+
 
     return { 'token': token}
 
