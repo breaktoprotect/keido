@@ -27,16 +27,25 @@ ADMINS = ['admin']
 admin_user = {
     'email': 'admin@kei.do',
     'hashed_password': '$2b$12$5INIF0hUA5h0La7yFsrM2uyGYyYC.trFkP4TgZigAGyxhOXiQm13u', #password -> "admin"
-    'role':'admin'
+    'role':['admin', 'manager']
     }
+
 test_user = {
     'email': 'tester@kei.do', 
     'hashed_password': '$2b$12$ipEc9wilgn/s0NgJe77cVeViTzjcCYW4JGcQgrq2YBIlf0iQs4emy', #password -> "tester"
-    'role':'user'
+    'role':['user']
 }
+
+manager_user = {
+    'email': 'manager@kei.do', 
+    'hashed_password': '$2b$12$.oOuVV0GpFOqYca6TV3Fz./qpeYr/j4BukJlzbml/ggAv.DqrpT66', #password -> "manager"
+    'role':['manager']
+}
+
 
 USERS.append(admin_user)
 USERS.append(test_user)
+USERS.append(manager_user)
 
 #! Temporary schedule data
 schedule_data = [
