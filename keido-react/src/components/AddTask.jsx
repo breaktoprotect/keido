@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 
-class CreateTask extends Component {
+class AddTask extends Component {
     state = {};
     render() {
         return (
             <div>
-                <h1>Placeholder for Create Task form</h1>
+                <h1>Placeholder for Add Task form</h1>
             </div>
         );
     }
 }
 
-export default CreateTask;
+export default AddTask;

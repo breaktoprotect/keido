@@ -2,9 +2,11 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import NavBar from "./components/NavBar";
-import CreateTask from "./components/CreateTask";
+import NavBar from "./components/_NavBar";
+import TopNavBar from "./components/TopNavBar";
+import AddTask from "./components/AddTask";
 import ErrorPage from "./components/ErrorPage";
+import ManageUsers from "./components/ManageUsers";
 import LoginForm from "./components/LoginForm";
 import Logout from "./components/Logout";
 import ScheduleView from "./components/ScheduleView";
@@ -81,38 +83,27 @@ function App() {
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <main className="container">
-                <NavBar />
+                <TopNavBar />
                 <div className="content">
-                    {/* <DayCalendar
-                    scheduledItems={getScheduledItems()}
-                    displayStartDate={new Date(2022, 8 - 1, 15)}
-                    displayEndDate={new Date(2022, 8 - 1, 27)}
-                /> */}
+                    <Routes>
+                        {/* Unauthenticated Pages */}
+                        {/* <Route path="/" exact element={<ScheduleView />} /> */}
+                        <Route path="/login" element={<LoginForm />} />
 
-                    <BrowserRouter>
-                        <Routes>
-                            {/* Unauthenticated Pages */}
-                            {/* <Route path="/" exact element={<ScheduleView />} /> */}
-                            <Route path="/login" element={<LoginForm />} />
+                        {/* Authenticated Pages */}
+                        <Route element={<RequireAuth />}>
+                            <Route path="/" exact element={<ScheduleView />} />
+                            <Route path="/addTask" element={<AddTask />} />
+                            <Route
+                                path="/manageUsers"
+                                element={<ManageUsers />}
+                            />
+                            <Route path="/logout" element={<Logout />} />
+                        </Route>
 
-                            {/* Authenticated Pages */}
-                            <Route element={<RequireAuth />}>
-                                <Route
-                                    path="/"
-                                    exact
-                                    element={<ScheduleView />}
-                                />
-                                <Route
-                                    path="/createTask"
-                                    element={<CreateTask />}
-                                />
-                                <Route path="/logout" element={<Logout />} />
-                            </Route>
-
-                            {/* No route -> Error message */}
-                            <Route path="*" element={<ErrorPage />} />
-                        </Routes>
-                    </BrowserRouter>
+                        {/* No route -> Error message */}
+                        <Route path="*" element={<ErrorPage />} />
+                    </Routes>
                 </div>
             </main>
         </ThemeProvider>
