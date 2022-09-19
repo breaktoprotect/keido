@@ -11,6 +11,7 @@ python-decouple = "*"
 pydantic = {extras = ["email"], version = "*"}
 passlib = "*"
 bcrypt = "*"
+tinydb = "*"
 
 [dev-packages]
 
