@@ -7,6 +7,7 @@ import TopNavBar from "./components/TopNavBar";
 import AddTask from "./components/AddTask";
 import ErrorPage from "./components/ErrorPage";
 import ManageUsers from "./components/ManageUsers";
+import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
 import Logout from "./components/Logout";
 import ScheduleView from "./components/ScheduleView";
@@ -43,6 +44,9 @@ const theme = createTheme({
         },
         info: {
             main: "#B53466",
+        },
+        subtle: {
+            main: "#A2ACBD",
         },
         pale: {
             main: "#F1F1E6",
@@ -89,6 +93,7 @@ function App() {
                         {/* Unauthenticated Pages */}
                         {/* <Route path="/" exact element={<ScheduleView />} /> */}
                         <Route path="/login" element={<LoginForm />} />
+                        <Route path="/register" element={<RegisterForm />} />
 
                         {/* Authenticated Pages */}
                         <Route element={<RequireAuth />}>

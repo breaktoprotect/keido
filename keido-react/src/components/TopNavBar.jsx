@@ -49,6 +49,13 @@ const adminPages = [
     },
 ];
 
+const unauthPages = [
+    {
+        pageName: "Register",
+        pageLink: "/register",
+    },
+];
+
 const loginPage = {
     pageName: "Login",
     pageLink: "/login",
@@ -100,13 +107,9 @@ const TopNavBar = () => {
                     >
                         Keido
                     </Typography>
-                    {/* <Typography
-                        variant="h6"
-                        component="div"
-                        sx={{ flexGrow: 1 }}
-                    >
-                        News
-                    </Typography> */}
+                    {/* Unauthenticated pages */}
+                    {!user?.role && displayPageLink(unauthPages)}
+
                     {/* Standard user Pages */}
                     {user?.role && displayPageLink(userPages)}
 

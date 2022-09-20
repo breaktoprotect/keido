@@ -1,5 +1,6 @@
-import { createContext, useReducer, useEffect, useMemo } from "react";
+import { createContext, useReducer, useMemo } from "react";
 import jwt_decode from "jwt-decode";
+import dayjs from "dayjs";
 
 export const AuthContext = createContext();
 
@@ -29,19 +30,49 @@ export const AuthContextProvider = ({ children }) => {
     });
 
     useMemo(() => {
+        //debug
+        console.log("AuthContext -> useMemo() parse token");
+
         const token = JSON.parse(localStorage.getItem("token"));
 
         if (token) {
             // Decode token
             const decodedUser = jwt_decode(token);
 
+            //debug
+            console.log("decodedUser ->", decodedUser);
+
+            // Check for expiry
+            /* if (dayjs.unix(decodedUser.exp) > dayjs()) {
+                isToken
+            } */
+            const isTokenExpired =
+                dayjs.unix(decodedUser.exp).diff(dayjs()) < 1;
+
+            //debug
+            console.log("isTokenExpired ->", isTokenExpired);
+            console.log(
+                "dayjs.unix(decodedUser.exp):",
+                dayjs.unix(decodedUser.exp)
+            );
+            console.log("dayjs():", dayjs());
+            console.log(
+                "diff of dayjs -->",
+                dayjs.unix(decodedUser.exp).diff(dayjs())
+            );
+
             // Update Auth context
-            const authUser = {
-                email: decodedUser["sub"],
-                role: decodedUser["role"],
-                token: token,
-            };
-            dispatch({ type: "LOGIN", payload: authUser });
+            if (!isTokenExpired) {
+                const authUser = {
+                    email: decodedUser["sub"],
+                    role: decodedUser["role"],
+                    token: token,
+                };
+                dispatch({ type: "LOGIN", payload: authUser });
+            } else {
+                localStorage.removeItem("token");
+                dispatch({ type: "LOGOUT" });
+            }
         }
     }, []); // onload only
 
