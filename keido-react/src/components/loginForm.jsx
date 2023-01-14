@@ -32,12 +32,12 @@ const LoginForm = () => {
 
     const navigate = useNavigate();
 
+    /* const navigate = useNavigate(); */
+
     const onSubmit = async (data, e) => {
         await login(data);
 
-        setTimeout(() => {
-            navigate("/");
-        }, 1000);
+        navigate("/");
     };
 
     //TODO Need to figure out how to trigger this. Controller?
@@ -48,8 +48,8 @@ const LoginForm = () => {
     };
 
     //debug
-    console.log("apiErrors:", apiErrors);
-    console.log("errors:", errors);
+    /* console.log("apiErrors:", apiErrors);
+    console.log("errors:", errors); */
 
     return (
         <>

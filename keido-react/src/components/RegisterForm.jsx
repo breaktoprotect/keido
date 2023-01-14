@@ -12,6 +12,7 @@ import {
 import PasswordPolicy from "./common/passwordPolicy";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ApprovalIcon from "@mui/icons-material/Approval";
+import { Password } from "@mui/icons-material";
 
 const RegisterForm = () => {
     const {
@@ -19,12 +20,21 @@ const RegisterForm = () => {
         handleSubmit,
         setError,
         formState: { errors },
-        control,
+        getValues,
     } = useForm();
 
     const { PASSWORD_MIN_LENGTH } = PasswordPolicy();
 
+    // Check two password fields to if they are the same
+    const isPasswordsMatch = () => {};
+
     const onSubmit = () => {};
+
+    //debug only
+    /*     const onErrors = () => {
+        //debug
+        console.log("registration form errors:", errors);
+    }; */
 
     return (
         <>
@@ -40,7 +50,7 @@ const RegisterForm = () => {
                                 Create a Keido account
                             </Typography>
                             <Typography color="subtle.main" variant="subtitle2">
-                                Already have an account?{" "}
+                                Already have an account?
                                 <Link to="/login">Sign in here</Link>
                             </Typography>
                         </Box>
@@ -70,6 +80,7 @@ const RegisterForm = () => {
                                 <Box mb={2}>
                                     <TextField
                                         fullWidth
+                                        type="password"
                                         helperText={
                                             errors?.setPassword
                                                 ? errors?.setPassword.message
@@ -89,6 +100,7 @@ const RegisterForm = () => {
                                 <Box mb={2}>
                                     <TextField
                                         fullWidth
+                                        type="password"
                                         helperText={
                                             errors?.confirmPassword
                                                 ? errors?.confirmPassword
@@ -105,6 +117,10 @@ const RegisterForm = () => {
                                         {...register("confirmPassword", {
                                             required: "Required",
                                             minLength: PASSWORD_MIN_LENGTH,
+                                            validate: (value) =>
+                                                value ===
+                                                    getValues("setPassword") ||
+                                                "Passwords must match!",
                                         })}
                                     />
                                 </Box>

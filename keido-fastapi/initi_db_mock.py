@@ -4,12 +4,6 @@ For initializing a test TinyDB file for dev / testing
 from tinydb import TinyDB
 import os
 
-#? Config
-DB_FILENAME = "./mock-db.json"
-if os.path.exists(DB_FILENAME):
-    os.remove(DB_FILENAME) # delete the file. db.truncate() doesn't work -_-
-db = TinyDB(DB_FILENAME)
-
 #! Temporary roles
 admin_user = {
     'email': 'admin@kei.do',
@@ -75,10 +69,16 @@ SCHEDULE_DATA = [
     ];
 
 
-#* Init code
-if __name__ == "__main__":
-    
 
+#* Init code
+def init_db():
+    #? Config
+    DB_FILENAME = "./db/mock-db.json"
+    if os.path.exists(DB_FILENAME):
+        os.remove(DB_FILENAME) # delete the file. db.truncate() doesn't work -_-
+    db = TinyDB(DB_FILENAME)
+
+    # Init...
     print("[*] Adding USERS...")
     db_users = db.table("users")
     for i in USERS:
@@ -90,3 +90,11 @@ if __name__ == "__main__":
         db_acts.insert(i)
     
     print("[*] DB Initialized -> {FILENAME}".format(FILENAME=DB_FILENAME))
+
+    db.close()
+
+if __name__ == "__main__":
+    pass
+    
+
+   

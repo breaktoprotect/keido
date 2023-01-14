@@ -40,7 +40,7 @@ def register(auth_details: AuthDetails):
     user_list = db.get_all_users()
 
     if any(user['email'] == auth_details.email for user in user_list):
-        #raise HTTPException(status_code=400, detail="Email is already taken")
+        #raise HTTPException(status_code=400, detail="Email is already taken")``
 
         #? Obfuscation 
         return { "status": "success"}

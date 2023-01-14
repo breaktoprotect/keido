@@ -3,6 +3,7 @@ import axios from "axios";
 import { useAuth } from "./useAuth";
 import jwt_decode from "jwt-decode";
 import axiosReq from "../components/common/axiosCustom";
+import { useNavigate } from "react-router-dom";
 
 //const LOGIN_URI = process.env.REACT_APP_ENDPOINT + "/user/login";
 const LOGIN_URI = "/user/login";
@@ -12,7 +13,9 @@ export const useLogin = () => {
     const [isLoading, setIsLoading] = useState(null);
     const { dispatch } = useAuth();
 
-    const login = async (data) => {
+    const navigate = useNavigate();
+
+    const login = async (data, redirectURL) => {
         setIsLoading(true);
         setErrors(null); // Reset error
 
@@ -54,6 +57,7 @@ export const useLogin = () => {
                 setIsLoading(false);
 
                 // Redirect authenticated user to main page e.g. dashboard
+                //navigate("/");
             }
 
             //debug

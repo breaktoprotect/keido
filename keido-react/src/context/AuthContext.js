@@ -73,6 +73,10 @@ export const AuthContextProvider = ({ children }) => {
                 localStorage.removeItem("token");
                 dispatch({ type: "LOGOUT" });
             }
+        } else {
+            //debug
+            console.log("---> NO TOKEN LOGGED OUT!!! ---");
+            dispatch({ type: "LOGOUT" });
         }
     }, []); // onload only
 

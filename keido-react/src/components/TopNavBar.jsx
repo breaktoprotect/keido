@@ -22,7 +22,7 @@ import keidoLogo from "../images/logo-text-transparent.svg";
 const logoStyle = {
     mr: 3,
     display: { xs: "none", md: "flex" },
-    fontFamily: "comic sans ms",
+    fontFamily: "Ink Free",
     fontWeight: 700,
     letterSpacing: ".3rem",
     color: "inherit",

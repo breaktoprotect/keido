@@ -6,7 +6,7 @@ const RequireAuth = () => {
     const location = useLocation();
 
     //debug
-    console.log("-----> user ->", user);
+    console.log("Triggered requireAuth. user ->", user);
 
     return user?.role ? (
         <Outlet />
